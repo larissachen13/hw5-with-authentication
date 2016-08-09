@@ -18,6 +18,10 @@ app.use(bodyParser.json());
 // all of our routes will be prefixed with /api
 app.use('/api', apiRouter);
 
+// default index route
+app.get('/', (req, res) => {
+  res.send('hi');
+});
 
 // START THE SERVER
 // =============================================================================
@@ -30,9 +34,5 @@ mongoose.connect(mongoURI);
 // set mongoose promises to es6 default
 mongoose.Promise = global.Promise;
 
-// default index route
-app.get('/', (req, res) => {
-  res.send('hi');
-});
 
 console.log(`listening on: ${port}`);
