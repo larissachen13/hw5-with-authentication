@@ -31,10 +31,11 @@ export const getPosts = (req, res) => {
 
 export const getPost = (req, res) => {
   const id = req.params.id;
+  let newPost = new Post();
   Post.findById(id)
   .then(post => {
-    post = { id: post._id, title: post.title, tags: post.tags, content: post.content };
-    res.json(post);
+    newPost = { id: post._id, title: post.title, tags: post.tags, content: post.content };
+    res.json(newPost);
   })
   .catch(error => {
     res.json({ error });
