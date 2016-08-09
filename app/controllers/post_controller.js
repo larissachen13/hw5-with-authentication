@@ -59,11 +59,11 @@ export const updatePost = (req, res) => {
   post.title = req.body.title;
   post.tags = req.body.tags;
   post.content = req.body.content;
-  Post.findByIdAndUpdate(id, post)
-  .then(result => {
-    res.json(result);
-  })
-  .catch(error => {
-    res.json({ error });
+  Post.update({ _id: id }, {
+    title: req.body.title,
+    tags: req.body.tags,
+    content: req.body.content,
+  }, (err, affected, resp) => {
+    console.log(resp);
   });
 };
