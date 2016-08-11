@@ -55,15 +55,20 @@ export const deletePost = (req, res) => {
 
 export const updatePost = (req, res) => {
   const id = req.params.id;
-  const post = new Post();
-  post.title = req.body.title;
-  post.tags = req.body.tags;
-  post.content = req.body.content;
-  Post.update({ _id: id }, {
-    title: req.body.title,
-    tags: req.body.tags,
-    content: req.body.content,
-  }, (err, affected, resp) => {
-    console.log(resp);
+  console.log(id);
+  // const post = new Post();
+  // post.title = req.body.title;
+  // post.tags = req.body.tags;
+  // post.content = req.body.content;
+  Post.findById(id)
+  .then(post => {
+    post.title = req.body.title;
+    post.tags = req.body.tags;
+    post.content = req.body.content;
+    post.save();
+    res.json(post);
+  })
+  .catch(error => {
+    res.json({ error });
   });
 };
