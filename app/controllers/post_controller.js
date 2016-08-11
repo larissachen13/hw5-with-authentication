@@ -65,6 +65,7 @@ export const updatePost = (req, res) => {
     post.title = req.body.title;
     post.tags = req.body.tags;
     post.content = req.body.content;
+    console.log(post);
     post.save();
     res.json(post);
   })
