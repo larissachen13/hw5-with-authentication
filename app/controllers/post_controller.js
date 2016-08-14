@@ -5,6 +5,8 @@ export const createPost = (req, res) => {
   post.title = req.body.title;
   post.tags = req.body.tags;
   post.content = req.body.content;
+  post.authorname = req.user.email;
+  console.log(post.authorname);
   post.save()
     .then(result => {
       res.json({ message: 'Post created!' });
@@ -20,7 +22,7 @@ export const getPosts = (req, res) => {
     // this cleans the posts because we use id instead of dangling _id
     // and we purposefully don't return content here either
     const cleanPosts = posts.map(post => {
-      return { id: post._id, title: post.title, tags: post.tags, content: post.content };
+      return { id: post._id, title: post.title, tags: post.tags, content: post.content, authorname: post.authorname };
     });
     res.json(cleanPosts);
   })
@@ -33,7 +35,7 @@ export const getPost = (req, res) => {
   const id = req.params.id;
   Post.findById(id)
   .then(post => {
-    post = { id: post._id, title: post.title, tags: post.tags, content: post.content };
+    post = { id: post._id, title: post.title, tags: post.tags, content: post.content, authorname: post.authorname };
     res.json(post);
   })
   .catch(error => {
